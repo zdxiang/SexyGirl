@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:fitsSystemWindows="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:navigationIcon="@drawable/ic_close_white_24dp"
+            android:title=""
+            app:navigationIcon="@drawable/ic_close_white_24dp"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            tools:targetApi="lollipop">
+
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textColor="#fff"
+                android:textSize="18sp"/>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <cn.zdxiang.mysuites.widget.MyWebView
+        android:id="@+id/myWebView"
+        android:layout_below="@id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <!--<WebView-->
+    <!--android:id="@+id/webView"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_below="@id/appbar"-->
+    <!--android:layout_gravity="center_horizontal"/>-->
+
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/rl_error"-->
+    <!--android:gravity="center"-->
+    <!--android:visibility="gone"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/iv_error"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--app:srcCompat="@drawable/ic_error_outline_yellow_800_48dp"-->
+    <!--android:layout_width="80dp"-->
+    <!--android:layout_height="80dp"/>-->
+
+    <!--<TextView-->
+    <!--android:layout_below="@id/iv_error"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textColor="@color/primary_text"-->
+    <!--android:drawablePadding="10dp"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:text="点击屏幕刷新"/>-->
+
+    <!--</RelativeLayout>-->
+
+    <!--<ProgressBar-->
+    <!--android:id="@+id/pb"-->
+    <!--style="@style/Widget.AppCompat.ProgressBar.Horizontal"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@id/appbar"-->
+    <!--android:layout_margin="0dp"-->
+    <!--android:indeterminate="false"-->
+    <!--android:max="100"-->
+    <!--android:minHeight="3dp"-->
+    <!--android:padding="0dp"-->
+    <!--android:progressDrawable="@drawable/progress_bar_states"-->
+    <!--android:visibility="gone"/>-->
+
+</RelativeLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FF9DD2</color>
+    <color name="colorPrimaryDark">#FF9DD2</color>
+    <color name="colorAccent">#ffffff</color>
+
+    <!--白色-->
+    <color name="white">#ffffff</color>
+
+    <!--透明一点白色-->
+    <color name="touWhite">#70ffffff</color>
+</resources>

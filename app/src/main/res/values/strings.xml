@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">SexyGirl</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="ad_title">赚钱、抽奖、娱乐</string>
+    <string name="free_choujiang">抽奖(100%中奖)</string>
+    <string name="make_money">免息借钱</string>
+    <string name="shop">特卖商城</string>
+    <!--<string name="girl_live">性感直播</string>-->
+    <string name="fuli_she">福利社</string>
+</resources>

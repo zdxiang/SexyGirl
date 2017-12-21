@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/item_ads"
+            android:title="@string/ad_title">
+            <menu>
+                <item
+                    android:id="@+id/nav_shop"
+                    android:icon="@drawable/ic_shopping_cart_pink_600_24dp"
+                    android:title="@string/shop" />
+
+                <item
+                    android:id="@+id/nav_earn"
+                    android:icon="@drawable/ic_card_giftcard_orange_800_24dp"
+                    android:title="@string/free_choujiang"/>
+
+                <item
+                    android:id="@+id/nav_make_money"
+                    android:icon="@drawable/ic_attach_money_red_800_24dp"
+                    android:title="@string/make_money"/>
+
+                <item
+                    android:id="@+id/nav_live"
+                    android:icon="@drawable/ic_play_arrow_orange_800_24dp"
+                    android:title="@string/fuli_she"/>
+
+            </menu>
+        </item>
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="捐助开发者"/>
+
+            <item
+                android:id="@+id/nav_get_package"
+                android:icon="@drawable/ic_menu_send"
+                android:title="领红包"/>
+        </menu>
+    </item>
+
+</menu>

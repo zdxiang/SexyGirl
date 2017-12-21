@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MySuites</string>
+    <string name="click_to_skip">点击跳过</string>
+    <string name="click_screen_to_refresh">点击屏幕刷新</string>
+</resources>
