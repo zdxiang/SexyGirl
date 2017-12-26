@@ -25,4 +25,13 @@
         app:indicatorName="BallPulseIndicator"
         />
 
+    <ImageView
+        android:id="@+id/iv_go_ad"
+        android:layout_width="80dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+
+        android:scaleType="centerInside"
+        android:layout_height="50dp"/>
+
 </RelativeLayout>

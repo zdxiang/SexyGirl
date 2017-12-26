@@ -31,10 +31,10 @@
         </item>
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="很多福利">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_others"
                 android:icon="@drawable/ic_menu_share"
                 android:title="捐助开发者"/>
 
@@ -42,7 +42,15 @@
                 android:id="@+id/nav_get_package"
                 android:icon="@drawable/ic_menu_send"
                 android:title="领红包"/>
+
+            <item
+                android:id="@+id/nav_upgrade"
+                android:icon="@drawable/ic_system_update_black_24dp"
+                android:title="@string/check_update"/>
+
         </menu>
+
+
     </item>
 
 </menu>
