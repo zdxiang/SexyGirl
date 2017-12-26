@@ -28,7 +28,9 @@ import cn.zdxiang.sexygirl.service.TraceServiceImpl;
  */
 
 public class MyApplication extends SuitesApplication {
+
     public static ExecutorService cThreadPool;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -44,7 +46,7 @@ public class MyApplication extends SuitesApplication {
         UMENG_MODEL = new UmengModel(APPKeys.UMENG_KEYS, "default", false, false);
         MIPUSH_MODEL = new MiPushModel(APPKeys.MIPUSH_APP_ID, APPKeys.MIPUSH_APP_KEY);
         GDT_MODEL = new GDTModel(APPKeys.GDT_APP_ID, APPKeys.GDT_BANNER_POS_ID, APPKeys.GDT_INTERTERISTAL_POS_ID, APPKeys.GDT_SPLASH_POS_ID, APPKeys.GDT_NATIVE_POS_ID, APPKeys.GDT_NATIVE_VIDEO_POS_ID, APPKeys.GDT_NATIVE_EXPRESS_POS_ID, APPKeys.GDT_CONTENT_POS_ID);
-        SPLASH_MODEL = new SplashModel(true, R.drawable.ic_launcher, "性感诱惑", "哈哈哈", 500, MainActivity.class);
+        SPLASH_MODEL = new SplashModel(true, R.mipmap.ic_launcher, "性感诱惑", "哈哈哈", 500, MainActivity.class);
     }
 
     private static String IMAGE_CACHE_PATH;
@@ -106,5 +108,4 @@ public class MyApplication extends SuitesApplication {
         }
         file.delete();
     }
-
 }

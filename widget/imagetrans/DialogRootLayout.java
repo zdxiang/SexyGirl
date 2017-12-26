@@ -14,6 +14,8 @@ import android.widget.FrameLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.zdxiang.sexygirl.utils.Random2AdUtil;
+
 /**
  * Created by fuckyou on 17/6/14.
  */
@@ -56,6 +58,7 @@ public class DialogRootLayout extends FrameLayout {
             @Override
             public void onPageSelected(int position) {
                 mImageTransParam.setNowIndex(position);
+                Random2AdUtil.random2Ad(getContext(),30);
             }
 
             @Override

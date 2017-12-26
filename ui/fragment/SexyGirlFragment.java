@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.umeng.analytics.MobclickAgent;
 import com.wang.avi.AVLoadingIndicatorView;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -22,14 +23,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import butterknife.BindView;
+import cn.zdxiang.mysuites.ui.AdWebActivity;
 import cn.zdxiang.mysuites.utils.ToastUtils;
+import cn.zdxiang.sexygirl.MainActivity;
 import cn.zdxiang.sexygirl.R;
 import cn.zdxiang.sexygirl.base.BasePresenterImpl;
 import cn.zdxiang.sexygirl.base.MvpFragment;
 import cn.zdxiang.sexygirl.base.ResultCallback;
 import cn.zdxiang.sexygirl.constant.APPKeys;
+import cn.zdxiang.sexygirl.constant.AdCons;
 import cn.zdxiang.sexygirl.constant.Apis;
 import cn.zdxiang.sexygirl.model.CategoryDetails;
 import cn.zdxiang.sexygirl.model.ContentList;
@@ -37,6 +42,7 @@ import cn.zdxiang.sexygirl.model.ContentListSub;
 import cn.zdxiang.sexygirl.model.ImgUrlModel;
 import cn.zdxiang.sexygirl.ui.adapter.MyImageTransAdapter;
 import cn.zdxiang.sexygirl.ui.adapter.SexyGirlAdapter;
+import cn.zdxiang.sexygirl.utils.Random2AdUtil;
 import cn.zdxiang.sexygirl.widget.imagetrans.ImageTrans;
 import cn.zdxiang.sexygirl.widget.imagetrans.MyImageLoad;
 import cn.zdxiang.sexygirl.widget.imagetrans.ScaleType;
@@ -100,13 +106,13 @@ public class SexyGirlFragment extends MvpFragment implements BaseQuickAdapter.Re
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(final BaseQuickAdapter baseQuickAdapter, final View view, final int position) {
-                if (isClicking)return;
+                if (Random2AdUtil.random2Ad(getContext(),6)) return;
+                if (isClicking) return;
                 isClicking = true;
                 if (adapter.getItemViewType(position) == SexyGirlAdapter.TYPE_LEVEL_0) return;
                 //防止在图片未加载完成时点击导致报错
                 if (view instanceof ImageView) {
                     ImageView v = (ImageView) view;
-                    Log.d("ImageTrans", "getDrawable==>" + v.getDrawable());
                     if (v.getDrawable() == null) {
                         return;
                     }
@@ -159,10 +165,11 @@ public class SexyGirlFragment extends MvpFragment implements BaseQuickAdapter.Re
                     public void run() {
                         isClicking = false;
                     }
-                },300);
+                }, 300);
+
+
             }
         });
-
     }
 
     @Override
@@ -227,13 +234,13 @@ public class SexyGirlFragment extends MvpFragment implements BaseQuickAdapter.Re
                     CategoryDetails.ShowapiResBodyBean.PageEntity pagebean = response.getShowapiResBody().getPagebean();
                     List<ContentList> level1 = pagebean.getContentlist();
 
-
                     totalPage = pagebean.getAllPages();
                     List<MultiItemEntity> res = new ArrayList<>();
                     for (int i = 0; i < level1.size(); i++) {
                         ContentList contentList = level1.get(i);
                         contentList.setSubItems(contentList.getList());
                     }
+
                     res.addAll(level1);
                     if (mPage >= totalPage) {
                         adapter.loadMoreEnd();

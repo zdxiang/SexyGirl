@@ -36,6 +36,7 @@ public class SexyGirlAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, 
 
     public void setSize(int size) {
         this.size = size;
+        notifyDataSetChanged();
     }
 
     public SexyGirlAdapter(Context context, List<MultiItemEntity> data) {

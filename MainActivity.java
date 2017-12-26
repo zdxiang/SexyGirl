@@ -1,5 +1,8 @@
 package cn.zdxiang.sexygirl;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -8,11 +11,12 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,6 +25,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.gyf.barlibrary.ImmersionBar;
+import com.tencent.bugly.beta.Beta;
 import com.umeng.analytics.MobclickAgent;
 import com.wang.avi.AVLoadingIndicatorView;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -34,8 +39,10 @@ import java.util.Map;
 import java.util.Random;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import cn.zdxiang.mysuites.base.SuitesActivity;
 import cn.zdxiang.mysuites.ui.AdWebActivity;
+import cn.zdxiang.mysuites.utils.ClipboardUtils;
 import cn.zdxiang.mysuites.utils.ToastUtils;
 import cn.zdxiang.sexygirl.base.BaseFragmentStateAdapter;
 import cn.zdxiang.sexygirl.base.ResultCallback;
@@ -44,6 +51,7 @@ import cn.zdxiang.sexygirl.constant.AdCons;
 import cn.zdxiang.sexygirl.constant.Apis;
 import cn.zdxiang.sexygirl.model.Category;
 import cn.zdxiang.sexygirl.model.ImgUrlModel;
+import cn.zdxiang.sexygirl.model.SettingEntity;
 import cn.zdxiang.sexygirl.ui.fragment.SexyGirlFragment;
 import okhttp3.Call;
 import okhttp3.Request;
@@ -59,9 +67,14 @@ public class MainActivity extends SuitesActivity implements NavigationView.OnNav
     @BindView(R.id.avi)
     AVLoadingIndicatorView avi;
 
+    @BindView(R.id.iv_go_ad)
+    ImageView ivGoAd;
+
+    private MenuItem adItems;
 
     private ImageView ivHeaderBg;
 
+    private String aliPayPackageCode = "";
 
     @Override
     protected int getLayoutId() {
@@ -84,11 +97,16 @@ public class MainActivity extends SuitesActivity implements NavigationView.OnNav
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        adItems = navigationView.getMenu().findItem(R.id.item_ads);
+
         View headerView = navigationView.getHeaderView(0);
         ivHeaderBg = headerView.findViewById(R.id.iv_header_bg);
         navigationView.setNavigationItemSelectedListener(this);
         requestData();
         setNavImageInRandom();
+        Beta.checkUpgrade(false, true);
+
+        Glide.with(this).asGif().load(R.drawable.open_package).into(ivGoAd);
     }
 
     protected void initImmersionBar() {
@@ -100,6 +118,7 @@ public class MainActivity extends SuitesActivity implements NavigationView.OnNav
     @Override
     protected void onResume() {
         super.onResume();
+        getSettings();
         tabLayout.addOnTabSelectedListener(this);
     }
 
@@ -131,12 +150,6 @@ public class MainActivity extends SuitesActivity implements NavigationView.OnNav
         }
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return true;
-//    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -164,8 +177,58 @@ public class MainActivity extends SuitesActivity implements NavigationView.OnNav
                 AdWebActivity.start(MainActivity.this, AdCons.BIAN_XIAN_MAO_FULI, getString(R.string.fuli_she));
                 MobclickAgent.onEvent(MainActivity.this, "fuli");
                 break;
+
+            case R.id.nav_get_package:
+                toAdOrToAlipay(aliPayPackageCode);
+                break;
+
+            case R.id.nav_others:
+                AlertDialog dialog = new AlertDialog.Builder(this).create();
+                dialog.setTitle(R.string.donate);
+                dialog.setMessage(getString(R.string.donate_msg));
+                dialog.setButton(DialogInterface.BUTTON_POSITIVE, getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ToastUtils.show(MainActivity.this, "复制支付宝账号成功");
+                        ClipboardUtils.copyText(getString(R.string.donate_account));
+                        dialog.dismiss();
+                    }
+                });
+                dialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+                break;
+
+            case R.id.nav_upgrade:
+                Beta.checkUpgrade();
+                break;
         }
         return true;
+    }
+
+    /**
+     * 如果支付宝吱口令为空，则点击进入的是广告砸蛋，否则就进入支付宝
+     *
+     * @param code 吱口令
+     */
+    private void toAdOrToAlipay(String code) {
+        if (TextUtils.isEmpty(code)) {
+            AdWebActivity.start(MainActivity.this, AdCons.BIAN_XIAN_MAO_CHOU_JIANG, getString(R.string.free_choujiang));
+            MobclickAgent.onEvent(MainActivity.this, "choujiang");
+        } else {
+            ClipboardUtils.copyText(code);
+            try {
+                PackageManager packageManager = this.getApplicationContext().getPackageManager();
+                Intent intent = packageManager.getLaunchIntentForPackage("com.eg.android.AlipayGphone");
+                startActivity(intent);
+            } catch (Exception e) {
+                ToastUtils.show(MainActivity.this, "没有安装支付宝");
+            }
+        }
     }
 
 
@@ -192,6 +255,11 @@ public class MainActivity extends SuitesActivity implements NavigationView.OnNav
             TextView textView = (TextView) tab.getCustomView();
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, size);
         }
+    }
+
+    @OnClick(R.id.iv_go_ad)
+    public void click2getPackage() {
+        toAdOrToAlipay(aliPayPackageCode);
     }
 
     private void requestData() {
@@ -258,5 +326,21 @@ public class MainActivity extends SuitesActivity implements NavigationView.OnNav
                 tabLayout.getTabAt(i).setCustomView(textView);
             }
         }
+    }
+
+
+    private void getSettings() {
+        OkHttpUtils.get().url(Apis.SYSTEM_SETTINGS).build().execute(new ResultCallback<SettingEntity>() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                ToastUtils.show(MainActivity.this, e.getMessage());
+            }
+
+            @Override
+            public void onResponse(SettingEntity response, int id) {
+                aliPayPackageCode = response.getAlipayPackageCode();
+                adItems.setVisible(response.isEnableSexygirlAd());
+            }
+        });
     }
 }

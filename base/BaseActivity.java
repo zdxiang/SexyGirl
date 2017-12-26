@@ -40,6 +40,7 @@ public abstract class BaseActivity<P extends BasePresenterImpl> extends AppCompa
 //        initTitle();
     }
 
+
     protected abstract P createPresenter();
 
     protected abstract int getLayoutId();
