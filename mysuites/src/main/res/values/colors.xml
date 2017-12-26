@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--全局统一文字颜色-->
+    <!--Dark text on light backgrounds
+    For dark text on light backgrounds, the most important text has an opacity of 87%.
+    Secondary text, which is lower in the visual hierarchy, has an opacity of 54%.
+    Text hints, like those in text fields and labels, and disabled text have even lower visual prominence with an opacity of 38%.-->
+    <!--主要颜色-->
+    <color name="primary_text">#DE000000</color>
+    <!--第二次要颜色-->
+    <color name="secondary_text">#8A000000</color>
+    <!--Hint text, disabled text and icons-->
+    <color name="hint_text">#61000000</color>
+</resources>

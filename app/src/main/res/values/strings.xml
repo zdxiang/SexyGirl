@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">性感诱惑</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="ad_title">赚钱、抽奖、娱乐</string>
+    <string name="free_choujiang">抽奖(100%中奖)</string>
+    <string name="make_money">免息借钱</string>
+    <string name="shop">特卖商城</string>
+    <!--<string name="girl_live">性感直播</string>-->
+    <string name="fuli_she">福利社</string>
+
+    <!--system-->
+    <string name="system">系统</string>
+    <string name="check_update">检查升级</string>
+    <string name="share">分享</string>
+    <string name="feedback">意见反馈</string>
+    <string name="about">关于</string>
+    <string name="donate">捐赠</string>
+    <string name="donate_account">365421046@qq.com</string>
+    <string name="donate_desc">为我买一杯咖啡, 让我在夜晚写代码时仍然保持清醒。</string>
+    <string name="donate_msg">支付宝账号将被复制到剪贴板, 打开支付宝并粘贴账号到顶部的搜索框操作，即可完成捐赠。感谢你的支持!</string>
+</resources>
